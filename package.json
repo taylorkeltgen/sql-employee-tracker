@@ -1,0 +1,26 @@
+{
+  "name": "sql-employee-tracker",
+  "version": "1.0.0",
+  "description": "This app allows a business owner to view and manage employee's departments and roles, to organize and plan.",
+  "main": "index.js",
+  "scripts": {
+    "start": "index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taylorkeltgen/sql-employee-tracker.git"
+  },
+  "author": "Taylor Keltgen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taylorkeltgen/sql-employee-tracker/issues"
+  },
+  "homepage": "https://github.com/taylorkeltgen/sql-employee-tracker#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "dotenv": "^10.0.0",
+    "inquirer": "^8.2.0",
+    "mysql2": "^2.3.3"
+  }
+}
