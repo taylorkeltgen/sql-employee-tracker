@@ -26,11 +26,9 @@
 - WHEN I choose to update an employee role
 - THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 
-## Website:
+## Video Walkthru:
 
-## Screenshot:
-
--
+- [Video Showcase](https://watch.screencastify.com/v/hOYxcJun4opkN2TgSgk8)
 
 ## Contributions:
 
