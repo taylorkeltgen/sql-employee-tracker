@@ -91,15 +91,15 @@ inquirer.prompt(initQuestions).then((answers) => {
   //======== ADD ROLE ========
   //prompted to enter the name, salary, and department for the role and that role is added to the database
   if (option === 'add a role') {
-    db.promise()
-      .query('SELECT dept FROM department')
-      .then(([rows, fields]) => {
-        const dept = [rows];
-        const deptObj = JSON.stringify(rows);
-        console.log(deptObj);
-      })
-      .catch(console.log)
-      .then(() => db.end());
+    // db.promise()
+    //   .query('SELECT dept FROM department')
+    //   .then(([rows, fields]) => {
+    //     const dept = [rows];
+    //     const deptObj = JSON.stringify(rows);
+    //     console.log(deptObj);
+    //   })
+    //   .catch(console.log)
+    //   .then(() => db.end());
 
     inquirer
       .prompt([
@@ -129,22 +129,29 @@ inquirer.prompt(initQuestions).then((answers) => {
           },
         },
         {
-          type: 'list',
+          type: 'input',
           name: 'setDept',
           message: 'What Department is this role from?',
-          choices: [deptObj],
+          validate: function (input) {
+            if (input == '') {
+              return 'Please enter a Department!';
+            }
+            return true;
+          },
         },
       ])
       .then((answers) => {
-        const { newRole } = answers;
+        const { newRole, newSalary, setDept } = answers;
         console.log(newRole);
-        // db.promise()
-        //   .query(`INSERT INTO department(dept) VALUES("${newRole}")`)
-        //   .then(([rows, fields]) => {
-        //     console.log(`${newRole} has been created!`);
-        //   })
-        //   .catch(console.log)
-        //   .then(() => db.end());
+        db.promise()
+          .query(
+            `INSERT INTO role(title, salary) VALUES("${newRole}", "${newSalary}")`
+          )
+          .then(([rows, fields]) => {
+            console.log(`Role has been created!`);
+          })
+          .catch(console.log)
+          .then(() => db.end());
       });
   }
 
@@ -177,10 +184,10 @@ inquirer.prompt(initQuestions).then((answers) => {
         {
           type: 'input',
           name: 'role',
-          message: '',
+          message: 'What is the employee role?',
           validate: function (input) {
             if (input == '') {
-              return 'Please enter a name!';
+              return 'Please enter a role!';
             }
             return true;
           },
@@ -188,7 +195,7 @@ inquirer.prompt(initQuestions).then((answers) => {
         {
           type: 'input',
           name: 'manager',
-          message: '',
+          message: 'Who is their supervisor?',
           validate: function (input) {
             if (input == '') {
               return 'Please enter a name!';
@@ -198,9 +205,10 @@ inquirer.prompt(initQuestions).then((answers) => {
         },
       ])
       .then((answers) => {
+        const { firstName, lastName, role, manager } = answers;
         db.promise()
           .query(
-            `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES("${answers.firstName}", "${answers.lastName}", "${answers.firstName}", "${answers.firstName}")`
+            `INSERT INTO employee(first_name, last_name) VALUES("${firstName}", "${lastName}")`
           )
           .then(([rows, fields]) => {
             console.log(`Employee has been added!`);
